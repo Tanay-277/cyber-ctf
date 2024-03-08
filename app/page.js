@@ -12,7 +12,7 @@ export default function Home() {
     setShowInstructions(true);
   };
 
-  const handleGoBack = () => {
+  const handleCloseInstructions = () => {
     setShowInstructions(false);
   };
 
@@ -47,7 +47,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Instruction />
+            <Instruction show={showInstructions} onClose={handleCloseInstructions} />
           </motion.div>
         )}
       </AnimatePresence>
