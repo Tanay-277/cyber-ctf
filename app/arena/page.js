@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TopLoadingBar from "react-top-loading-bar";
 import { Client, Databases } from "appwrite";
@@ -8,6 +8,7 @@ import "./arena.css";
 import "../globals.css";
 
 const Page = () => {
+  const hiddenTimeRef = useRef(null);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -16,6 +17,100 @@ const Page = () => {
   const [showNextQuestion, setShowNextQuestion] = useState(false);
   const [incorrectPassword, setIncorrectPassword] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        console.log("Tab is hidden, starting timer...");
+        hiddenTimeRef.current = setTimeout(checkHiddenDuration, 2000); // Check after 2 seconds
+      } else {
+        // Clear the timer when the tab becomes visible again
+        clearTimeout(hiddenTimeRef.current);
+      }
+    };
+
+    const checkHiddenDuration = () => {
+      console.log(
+        "Tab has been hidden for an extended period, taking action..."
+      );
+      // Perform action when the tab remains hidden for an extended period
+      // For example, display a message or close the tab
+      document.body.style.background = "#000";
+      document.body.style.display = "grid";
+      document.body.style.placeItems = "center";
+      document.body.style.fontSize = "4rem";
+      document.body.innerHTML =
+        "Since you have left the tab, the content has been hidden for security reasons. Please close the tab and try again.";
+      // Close the current tab
+      window.close();
+    };
+
+    // Add event listener for visibility change
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Disable right-click
+    const disableRightClick = (event) => {
+      event.preventDefault();
+    };
+    // Disable F11 key
+    const disableF11Key = (event) => {
+      if (event.keyCode === 122) {
+        event.preventDefault();
+        console.log("Pressed F11");
+      }
+    };
+    document.addEventListener("keydown", disableF11Key);
+
+    // Disable F12 key
+    const disableF12Key = (event) => {
+      if (event.keyCode === 123) {
+        event.preventDefault();
+        console.log("Pressed F12");
+      }
+    };
+    document.addEventListener("keydown", disableF12Key);
+
+    // Disable context menu
+    const disableCtrlShiftI = (event) => {
+      if (event.ctrlKey && event.shiftKey && event.keyCode === 73) {
+        event.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", disableCtrlShiftI);
+
+    // Prevent entering fullscreen mode
+    const preventFullScreen = () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    };
+    document.addEventListener("fullscreenchange", preventFullScreen);
+
+    // Prevent drag and drop
+    const preventDragDrop = (event) => {
+      event.preventDefault();
+    };
+    document.addEventListener("dragstart", preventDragDrop);
+
+    // Prevent selection
+    const preventSelection = (event) => {
+      event.preventDefault();
+    };
+    document.addEventListener("selectstart", preventSelection);
+
+    // Cleanup function
+    return () => {
+      // Clean up event listeners
+      document.removeEventListener("contextmenu", disableRightClick);
+      document.removeEventListener("keydown", disableF12Key);
+      document.removeEventListener("keydown", disableCtrlShiftI);
+      document.removeEventListener("fullscreenchange", preventFullScreen);
+      document.removeEventListener("keydown", disableF11Key);
+      document.removeEventListener("dragstart", preventDragDrop);
+      document.removeEventListener("selectstart", preventSelection);
+      clearTimeout(hiddenTimeRef.current); // Clear the timeout
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
