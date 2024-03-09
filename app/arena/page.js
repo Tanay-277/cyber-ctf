@@ -54,11 +54,13 @@ const Page = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setPassword("");
         setShowNextQuestion(false);
+        setIncorrectPassword(false);
       }
     } else {
       console.log("Incorrect password!");
       setPassword("");
-      setIsModalOpen(true);
+      setIsModalOpen(true); // Display modal
+      setIncorrectPassword(true);
       // Trigger the shaking animation
       const inputElement = document.getElementById("passwordInput");
       if (inputElement) {
@@ -106,6 +108,7 @@ const Page = () => {
       <AnimatePresence>
         {!showNextQuestion && (
           <motion.div
+            key={currentQuestionIndex}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
@@ -161,16 +164,38 @@ const Page = () => {
 export default Page;
 
 const Modal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const modalVariants = {
+    hidden: {
+      opacity: 0,
+      y: "-100%",
+    },
+    visible: {
+      opacity: 1,
+      y: "0%",
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
+      },
+    },
+  };
 
   return (
-    <div className="modal absolute top-[10%] right-[10%] bg-black p-4 flex item-center justify-between rounded-lg">
+    <motion.div
+      className="modal absolute top-[10%] right-[10%] bg-black p-4 flex item-center justify-between rounded-lg"
+      initial="hidden"
+      animate={isOpen ? "visible" : "hidden"}
+      variants={modalVariants}
+    >
       <div className="modal-content flex flex-row-reverse items-center justify-center">
-        <span className=" cursor-pointer grid place-items-center ml-4 close text-3xl p-1 px-3 hover:bg-red-600 transition-colors ease-linear rounded-xl" onClick={onClose}>
+        <span
+          className="cursor-pointer grid place-items-center ml-4 close text-3xl p-1 px-3 hover:bg-red-600 transition-colors ease-linear rounded-xl"
+          onClick={onClose}
+        >
           &times;
         </span>
         <p>Wrong answer! Please try again.</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
