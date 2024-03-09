@@ -61,6 +61,10 @@ const Page = () => {
     };
     document.addEventListener("keydown", disableF11Key);
 
+    // disable content menu
+    document.addEventListener("contextmenu", disableRightClick);
+    
+
     // Disable F12 key
     const disableF12Key = (event) => {
       if (event.keyCode === 123) {
@@ -77,14 +81,6 @@ const Page = () => {
       }
     };
     document.addEventListener("keydown", disableCtrlShiftI);
-
-    // Prevent entering fullscreen mode
-    const preventFullScreen = () => {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      }
-    };
-    document.addEventListener("fullscreenchange", preventFullScreen);
 
     // Prevent drag and drop
     const preventDragDrop = (event) => {
