@@ -35,9 +35,9 @@ const Page = () => {
     const razor = data[questionNumber - 1]?.alphanumeric;
     console.log(razor, password);
     if (razor == password) {
-      alert("Correct password!");
+      console.log("Correct password!");
     } else {
-      alert("Incorrect password!");
+      console.log("Incorrect password!");
     }
   };
 
