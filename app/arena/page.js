@@ -8,7 +8,7 @@ import "./arena.css";
 import "../globals.css";
 
 const Page = () => {
-  const hiddenTimeRef = useRef(null);
+  // const hiddenTimeRef = useRef(null);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -19,34 +19,34 @@ const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden") {
-        console.log("Tab is hidden, starting timer...");
-        hiddenTimeRef.current = setTimeout(checkHiddenDuration, 2000); // Check after 2 seconds
-      } else {
-        // Clear the timer when the tab becomes visible again
-        clearTimeout(hiddenTimeRef.current);
-      }
-    };
+    // const handleVisibilityChange = () => {
+    //   if (document.visibilityState === "hidden") {
+    //     console.log("Tab is hidden, starting timer...");
+    //     hiddenTimeRef.current = setTimeout(checkHiddenDuration, 2000); // Check after 2 seconds
+    //   } else {
+    //     // Clear the timer when the tab becomes visible again
+    //     clearTimeout(hiddenTimeRef.current);
+    //   }
+    // };
 
-    const checkHiddenDuration = () => {
-      console.log(
-        "Tab has been hidden for an extended period, taking action..."
-      );
-      // Perform action when the tab remains hidden for an extended period
-      // For example, display a message or close the tab
-      document.body.style.background = "#000";
-      document.body.style.display = "grid";
-      document.body.style.placeItems = "center";
-      document.body.style.fontSize = "4rem";
-      document.body.innerHTML =
-        "Since you have left the tab, the content has been hidden for security reasons. Please close the tab and try again.";
-      // Close the current tab
-      window.close();
-    };
+    // const checkHiddenDuration = () => {
+    //   console.log(
+    //     "Tab has been hidden for an extended period, taking action..."
+    //   );
+    //   // Perform action when the tab remains hidden for an extended period
+    //   // For example, display a message or close the tab
+    //   document.body.style.background = "#000";
+    //   document.body.style.display = "grid";
+    //   document.body.style.placeItems = "center";
+    //   document.body.style.fontSize = "4rem";
+    //   document.body.innerHTML =
+    //     "Since you have left the tab, the content has been hidden for security reasons. Please close the tab and try again.";
+    //   // Close the current tab
+    //   window.close();
+    // };
 
     // Add event listener for visibility change
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    // document.addEventListener("visibilitychange", handleVisibilityChange);
 
     // Disable right-click
     const disableRightClick = (event) => {
@@ -104,7 +104,7 @@ const Page = () => {
       document.removeEventListener("keydown", disableF11Key);
       document.removeEventListener("dragstart", preventDragDrop);
       document.removeEventListener("selectstart", preventSelection);
-      clearTimeout(hiddenTimeRef.current); // Clear the timeout
+      // clearTimeout(hiddenTimeRef.current); // Clear the timeout
     };
   }, []);
 
@@ -150,9 +150,8 @@ const Page = () => {
     } else {
       console.log("Incorrect password!");
       setPassword("");
-      setIsModalOpen(true); // Display modal
+      setIsModalOpen(true); 
       setIncorrectPassword(true);
-      // Trigger the shaking animation
       const inputElement = document.getElementById("passwordInput");
       if (inputElement) {
         inputElement.animate(
