@@ -148,6 +148,7 @@ const Page = () => {
       }
     } else {
       console.log("Incorrect password!");
+      setPassword("");
       setIsModalOpen(true);
       setIncorrectPassword(true);
       const inputElement = document.getElementById("passwordInput");
