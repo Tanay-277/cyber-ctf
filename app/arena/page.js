@@ -148,7 +148,6 @@ const Page = () => {
       }
     } else {
       console.log("Incorrect password!");
-      setPassword("");
       setIsModalOpen(true);
       setIncorrectPassword(true);
       const inputElement = document.getElementById("passwordInput");
@@ -218,18 +217,22 @@ const Page = () => {
                 {questions[currentQuestionIndex].questionText}
               </p>
               <p className="text-center text-gray-500">
-                Hint:
-                {questions[currentQuestionIndex].hint}
+                Hint: {questions[currentQuestionIndex].hint}
               </p>
             </div>
-            <div className="relative questionBot pt-4 px-4 border-t-[0.1px] border-[#ffffff12] w-full flex flex-row items-center justify-center gap-4 mt-4">
+            <div className="relative questionBot pt-4 px-4 border-t-[0.1px] border-[#ffffff12] w-full flex flex-col items-center justify-center gap-4 mt-4">
               <input
                 id="passwordInput"
                 type="text"
                 className="text-[#faebd7] px-4 py-4 border-[0.1px] border-[#faebd7] rounded-full w-full bg-[#060f16] "
                 value={password}
                 onChange={handleChange}
-                placeholder="Enter Flag Here..."
+                placeholder={questions[currentQuestionIndex].answerInstructions}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handlePasswordSubmit();
+                  }
+                }}
               />
               <button
                 onClick={handlePasswordSubmit}
@@ -238,6 +241,7 @@ const Page = () => {
                 Submit
               </button>
             </div>
+            {/* <p>{questions[currentQuestionIndex].answerInstructions}</p> */}
           </motion.div>
         )}
         {/* {showNextQuestion && (
@@ -265,6 +269,15 @@ const Page = () => {
 export default Page;
 
 const Modal = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    if (isOpen) {
+      const timeoutId = setTimeout(() => {
+        onClose();
+      }, 2000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isOpen, onClose]);
   const modalVariants = {
     hidden: {
       opacity: 0,
@@ -283,7 +296,7 @@ const Modal = ({ isOpen, onClose }) => {
 
   return (
     <motion.div
-      className="modal absolute top-[10%] right-[10%] bg-black p-4 px-5 flex item-center justify-between rounded-full border-[0.1px] border-[#faebd7]"
+      className="modal absolute top-[15%] right-[10%] bg-black p-4 px-5 flex item-center justify-between rounded-full border-[0.1px] border-[#faebd7]"
       initial="hidden"
       animate={isOpen ? "visible" : "hidden"}
       variants={modalVariants}

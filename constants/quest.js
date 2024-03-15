@@ -7,13 +7,17 @@ export const questions = [
     question: "Decrypt the following message to pass through this level.",
     questionText: "Khoor zruog lv d phvvdjh",
     hint: "Caeser cipher is an addition cipher with some fixed key.",
+    answerInstructions :
+      "Enter the flag with all lowercase characters and without spaces.",
   },
   {
     questionNumber: 2,
     head: "DNS Dilemma",
     question: "Resolve the following domain name to IP address to proceed.",
-    questionText: "www.example.com",
-    hint: "Remember, DNS stands for Domain Name System, a crucial part of the internet's infrastructure.",
+    questionText: "www.myntra.com",
+    hint: "nslookup. You can also use online tools available on web.",
+    answerInstructions :
+      "Enter 0.0.0.0",
   },
   {
     questionNumber: 3,
