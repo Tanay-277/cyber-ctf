@@ -54,7 +54,6 @@
   opacity: 1;
   position: absolute;
   background: #000000ad;
-  height: 80vh;
   width: 80vw;
   display: flex;
   flex-direction: column;

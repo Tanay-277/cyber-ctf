@@ -63,7 +63,6 @@ const Page = () => {
 
     // disable content menu
     document.addEventListener("contextmenu", disableRightClick);
-    
 
     // Disable F12 key
     const disableF12Key = (event) => {
@@ -100,7 +99,7 @@ const Page = () => {
       document.removeEventListener("contextmenu", disableRightClick);
       document.removeEventListener("keydown", disableF12Key);
       document.removeEventListener("keydown", disableCtrlShiftI);
-      document.removeEventListener("fullscreenchange", preventFullScreen);
+      // document.removeEventListener("fullscreenchange", preventFullScreen);
       document.removeEventListener("keydown", disableF11Key);
       document.removeEventListener("dragstart", preventDragDrop);
       document.removeEventListener("selectstart", preventSelection);
@@ -150,7 +149,7 @@ const Page = () => {
     } else {
       console.log("Incorrect password!");
       setPassword("");
-      setIsModalOpen(true); 
+      setIsModalOpen(true);
       setIncorrectPassword(true);
       const inputElement = document.getElementById("passwordInput");
       if (inputElement) {
@@ -205,31 +204,43 @@ const Page = () => {
             transition={{ duration: 0.5 }}
             className={`question ${incorrectPassword ? "shake" : ""}`}
           >
-            <h1 className="text-4xl font-bold text-center mb-4">
-              {questions[currentQuestionIndex].questionNumber}.
-              {questions[currentQuestionIndex].question}
-            </h1>
-            <p className="text-center text-gray-500">
-              {questions[currentQuestionIndex].hint}
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 mt-4">
+            <div className="questionHead border-b-[0.1px] border-[#ffffff12] w-full">
+              <h1 className="text-4xl font-bold text-center mb-4 tracking-widest">
+                {/* {questions[currentQuestionIndex].questionNumber}. */}
+                {questions[currentQuestionIndex].head}
+              </h1>
+            </div>
+            <div className="questionMid gap-4 flex flex-col">
+              <h3 className="text-3xl font-semibold text-center mb-4">
+                {questions[currentQuestionIndex].question}
+              </h3>
+              <p className="bg-[#000000ba] text-gray-500 rounded-full p-4 mb-4">
+                {questions[currentQuestionIndex].questionText}
+              </p>
+              <p className="text-center text-gray-500">
+                Hint:
+                {questions[currentQuestionIndex].hint}
+              </p>
+            </div>
+            <div className="relative questionBot pt-4 px-4 border-t-[0.1px] border-[#ffffff12] w-full flex flex-row items-center justify-center gap-4 mt-4">
               <input
                 id="passwordInput"
                 type="text"
-                className="text-black px-4 py-2 border-[0.1px] border-[#ffffff12] rounded-lg"
+                className="text-[#faebd7] px-4 py-4 border-[0.1px] border-[#faebd7] rounded-full w-full bg-[#060f16] "
                 value={password}
                 onChange={handleChange}
+                placeholder="Enter Flag Here..."
               />
               <button
                 onClick={handlePasswordSubmit}
-                className="px-4 py-2 rounded-lg border-[0.1px] border-[#ffffff12]"
+                className="absolute right-6 bg-[#060f16] z-10 px-4 py-2 rounded-full border-[0.1px] transition-colors ease-in-out border-[#faebd7] hover:text-[#060f16] hover:bg-[#faebd7]"
               >
                 Submit
               </button>
             </div>
           </motion.div>
         )}
-        {showNextQuestion && (
+        {/* {showNextQuestion && (
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -244,7 +255,7 @@ const Page = () => {
               Next Question
             </button>
           </motion.div>
-        )}
+        )} */}
       </AnimatePresence>
       <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>
@@ -272,14 +283,14 @@ const Modal = ({ isOpen, onClose }) => {
 
   return (
     <motion.div
-      className="modal absolute top-[10%] right-[10%] bg-black p-4 flex item-center justify-between rounded-lg"
+      className="modal absolute top-[10%] right-[10%] bg-black p-4 px-5 flex item-center justify-between rounded-full border-[0.1px] border-[#faebd7]"
       initial="hidden"
       animate={isOpen ? "visible" : "hidden"}
       variants={modalVariants}
     >
       <div className="modal-content flex flex-row-reverse items-center justify-center">
         <span
-          className="cursor-pointer grid place-items-center ml-4 close text-3xl p-1 px-3 hover:bg-red-600 transition-colors ease-linear rounded-xl"
+          className="cursor-pointer grid place-items-center ml-4 close text-3xl p-1 transition-colors ease-linear text-gray-500 hover:text-red-500"
           onClick={onClose}
         >
           &times;

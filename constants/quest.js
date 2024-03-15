@@ -3,13 +3,17 @@
 export const questions = [
   {
     questionNumber: 1,
-    question: "What is the capital of France?",
-    hint: "The city is known for its fashion, food, and art.",
+    head: "Ceaser Cipher",
+    question: "Decrypt the following message to pass through this level.",
+    questionText: "Khoor zruog lv d phvvdjh",
+    hint: "Caeser cipher is an addition cipher with some fixed key.",
   },
   {
     questionNumber: 2,
-    question: "What is the capital of Germany?",
-    hint: "The city is known for its history, culture, and nightlife.",
+    head: "DNS Dilemma",
+    question: "Resolve the following domain name to IP address to proceed.",
+    questionText: "www.example.com",
+    hint: "Remember, DNS stands for Domain Name System, a crucial part of the internet's infrastructure.",
   },
   {
     questionNumber: 3,
