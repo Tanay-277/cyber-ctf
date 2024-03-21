@@ -16,6 +16,7 @@ const LoadingOverlay = () => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [text, setText] = useState("");
   const [isTypingCompleted, setIsTypingCompleted] = useState(false);
+  const [isDisplayNone, setIsDisplayNone] = useState(false);
 
   useEffect(() => {
     const typingInterval = setInterval(() => {
@@ -36,7 +37,7 @@ const LoadingOverlay = () => {
     setTimeout(() => {
       setIsLoading(false);
       clearInterval(typingInterval);
-    }, 11000);
+    }, 10000);
 
     return () => clearInterval(typingInterval);
   }, [text, currentPhraseIndex, phrases]);
@@ -49,13 +50,25 @@ const LoadingOverlay = () => {
         );
         setIsTypingCompleted(false);
         setText("");
-      }, 500);
+      }, 1000);
     }
   }, [isTypingCompleted]);
 
+  useEffect(() => {
+    if (!isLoading) {
+      const timeoutId = setTimeout(() => {
+        setIsDisplayNone(true);
+      }, 2000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isLoading]);
+
   return (
     <motion.div
-      className="absolute top-0 left-0 w-full h-full bg-black flex justify-center items-center z-50 text-slate-500 text-2xl"
+      className={`absolute top-0 left-0 w-full h-full bg-black flex justify-center items-center z-50 text-slate-500 text-2xl ${
+        isDisplayNone ? "hidden" : ""
+      }`}
       initial={{ opacity: 1 }}
       animate={{ opacity: isLoading ? 1 : 0 }}
       transition={{ duration: 0.5 }}
@@ -76,7 +89,7 @@ const LoadingOverlay = () => {
               y: currentPhraseIndex === index ? 0 : -20,
             }}
             transition={{ duration: 0.5 }}
-            style={{ marginBottom: "10px", fontSize: "2rem" }}
+            style={{ marginBottom: "10px" }}
           >
             {phrase}
           </motion.h2>
@@ -93,13 +106,11 @@ export default function App() {
       <Spline scene="https://prod.spline.design/r2fxZA21HvoZdHtw/scene.splinecode" />
       <div className="absolute top-[10%] left-0 h-10 w-full flex items-center justify-center flex-col mt-20">
         <h1 className="text-7xl mb-10">
-          <LinearGradient gradient={['to left', '#0b2125 ,#2226eb']}>
+          <LinearGradient gradient={["to left", "#0b2125 ,#2226eb"]}>
             Congratulations
           </LinearGradient>
         </h1>
-        <h3 className="text-2xl">
-          You completed the journey.
-        </h3>
+        <h3 className="text-2xl">You completed the journey.</h3>
       </div>
     </>
   );
