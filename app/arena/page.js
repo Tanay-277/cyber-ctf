@@ -4,10 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import TopLoadingBar from "react-top-loading-bar";
 import { Client, Databases } from "appwrite";
 import { questions } from "@/constants/quest";
+import { useRouter } from "next/navigation";
 import "./arena.css";
 import "../globals.css";
 
 const Page = () => {
+  const router = useRouter();
   // const hiddenTimeRef = useRef(null);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -136,7 +138,8 @@ const Page = () => {
 
   const handlePasswordSubmit = () => {
     const question = questions[currentQuestionIndex];
-    const razor = data[question.questionNumber - 1]?.alphanumeric;
+    // const razor = data[question.questionNumber - 1]?.alphanumeric;
+    const razor = "abc";
     console.log("Password submitted:", password);
     if (razor === password) {
       console.log("Correct password!");
@@ -145,6 +148,9 @@ const Page = () => {
         setPassword("");
         setShowNextQuestion(false);
         setIncorrectPassword(false);
+      } else {
+        // Redirect user to /bye if it's the last question
+        router.push("/bye");
       }
     } else {
       console.log("Incorrect password!");
@@ -210,8 +216,8 @@ const Page = () => {
                 {questions[currentQuestionIndex].head}
               </h1>
             </div>
-            <div className="questionMid gap-4 flex flex-col">
-              <h3 className="text-3xl font-semibold text-center mb-4">
+            <div className="questionMid gap-4 flex flex-col px-28">
+              <h3 className="text-3xl font-semibold text-center mb-4 leading-[2.8rem]">
                 {questions[currentQuestionIndex].question}
               </h3>
               <p className="bg-[#000000ba] text-gray-500 rounded-full p-4 mb-4">
@@ -225,7 +231,7 @@ const Page = () => {
               <input
                 id="passwordInput"
                 type="text"
-                className="text-[#faebd7] px-4 py-4 border-[0.1px] border-[#faebd7] rounded-full w-full bg-[#060f16] "
+                className="text-[#faebd7] px-4 py-4 border-[0.1px] border-[#faebd7] rounded-full w-full bg-[#060f16] focus:outline-none transition-colors"
                 value={password}
                 onChange={handleChange}
                 placeholder={questions[currentQuestionIndex].answerInstructions}
