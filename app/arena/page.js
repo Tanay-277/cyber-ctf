@@ -140,8 +140,8 @@ const Page = () => {
 
   const handlePasswordSubmit = () => {
     const question = questions[currentQuestionIndex];
-    // const razor = data[question.questionNumber - 1]?.alphanumeric;
-    const razor = "abc";
+    const razor = data[question.questionNumber - 1]?.alphanumeric;
+    // const razor = "abc";
     // console.log("Password submitted:", password);
     if (razor === password) {
       // console.log("Correct password!");
