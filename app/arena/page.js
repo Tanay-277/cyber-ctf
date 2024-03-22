@@ -7,6 +7,7 @@ import { questions } from "@/constants/quest";
 import { useRouter } from "next/navigation";
 import "./arena.css";
 import "../globals.css";
+import Link from "next/link";
 
 const Page = () => {
   const router = useRouter();
@@ -139,8 +140,8 @@ const Page = () => {
 
   const handlePasswordSubmit = () => {
     const question = questions[currentQuestionIndex];
-    const razor = data[question.questionNumber - 1]?.alphanumeric;
-    // const razor = "abc";
+    // const razor = data[question.questionNumber - 1]?.alphanumeric;
+    const razor = "abc";
     // console.log("Password submitted:", password);
     if (razor === password) {
       // console.log("Correct password!");
@@ -299,7 +300,14 @@ const Page = () => {
                 onClick={handlePasswordSubmit}
                 className="absolute right-6 bg-[#060f16] z-10 px-4 py-2 rounded-full border-[0.1px] transition-colors ease-in-out duration-300 border-[#faebd7] hover:text-[#060f16] hover:bg-[#faebd7]"
               >
-                Submit
+                {/* if the question is last then it should render a linnk tag */}
+                {currentQuestionIndex === questions.length - 1 ? (
+                  <Link href="/bye">
+                    Next
+                  </Link>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
           </motion.div>
