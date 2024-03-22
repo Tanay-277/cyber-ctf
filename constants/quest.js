@@ -34,6 +34,15 @@ export const questions = [
     hint: "C = E (K, P) = (Pi + Ki) mod 26 \n where K is key P ia a Plaintext",
   },
   {
+    questionNumber: 5,
+    head: "Container Caper",
+    question:
+      "Find the readme.txt file in the docker container to get the flag.\nUse following url for downloading the tar file of docker image load it in your system and capture the flag.",
+    questionText:
+      "https://drive.google.com/file/d/1DKn18L5J7BNOpGpaBsZDNhv13vajzbVb/view?usp=sharing",
+    hint: "Commands: docker load, exec, find, ls, cat, cd",
+  },
+  {
     questionNumber: 6,
     head: "Steganography",
     question:
