@@ -42,7 +42,7 @@ const Instruction = ({ show, onClose }) => {
                         id="complete"
                         name="complete"
                         value="complete"
-                        className='w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500'
+                        className='w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 accent-indigo-900'
                         onChange={handleCheckboxChange}
                     />
                     <label htmlFor="complete">I have read and understood the instructions</label>

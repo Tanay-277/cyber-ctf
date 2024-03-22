@@ -59,7 +59,7 @@ export const questions = [
     questionNumber: 7,
     head: "SQL Ijection",
     question:
-      "Analyze the datasets of website locate the users table dump the hash and capture the falg.",
+      "Analyze the datasets of website locate the users table dump the hash and capture the flag.",
     questionText: "http://testphp.vulnweb.com/listproducts.php?cat=1",
     hint: "Commands : sqlmap ,apt-get\n8.",
     answerInstructions:
