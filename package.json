@@ -9,13 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-three/drei": "^9.102.5",
-    "@react-three/fiber": "^8.15.19",
-    "@splinetool/loader": "^1.0.66",
-    "@splinetool/r3f-spline": "^1.0.2",
-    "@splinetool/react-spline": "^2.2.6",
-    "@splinetool/runtime": "^1.0.75",
-    "@types/three": "^0.162.0",
     "appwrite": "^14.0.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.8",
