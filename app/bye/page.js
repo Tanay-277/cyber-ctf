@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import Spline from "@splinetool/react-spline";
 import { LinearGradient } from "react-text-gradients";
 
 const LoadingOverlay = () => {
@@ -103,7 +102,6 @@ export default function App() {
   return (
     <>
       <LoadingOverlay />
-      <Spline scene="https://prod.spline.design/r2fxZA21HvoZdHtw/scene.splinecode" />
       <div className="absolute top-[10%] left-0 h-10 w-full flex items-center justify-center flex-col mt-20">
         <h1 className="text-7xl mb-10">
           <LinearGradient gradient={["to left", "#0b2125 ,#2226eb"]}>
